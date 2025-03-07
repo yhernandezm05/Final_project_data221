@@ -40,6 +40,7 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 % Make \paragraph and \subparagraph free-standing
@@ -95,6 +96,12 @@
 \makeatother
 
 \KOMAoption{captions}{tableheading}
+\usepackage{float}          % For improved figure placement control (e.g., using [H])
+\makeatletter
+\renewcommand{\fps@figure}{H}
+\usepackage{tabularx}        % For tables with automatic text wrapping
+\newcolumntype{Y}{>{\centering\arraybackslash}X} % Custom column type for centered text
+\usepackage{graphicx}        % For including images
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
