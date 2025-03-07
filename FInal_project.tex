@@ -233,6 +233,17 @@ war & total\_deaths & Height(cm) & EVI & HSUS \\
 19.0 & 1.0 & 0.0 & 25.0 & 172.080664 & 2325.601346 & 34.346872 \\
 \end{longtable}
 
+We decided against using only years 1901-1910, because it would be too
+short of a time frame to analyze and the data would be limited to train
+on. Instead, we opted to use the time period between 1815 - 1968,
+because all of the years in between contain data for all of the
+variables with the exception of one year that had a missing ratio value,
+which we will interpolate by taking the average of the two years
+surrounding it. We feel that analyzing the years 1815 - 1968, an entire
+century and more, will give us a better understanding of the data and
+allow us to train our model more effectively to account for generational
+shifts in political instability.
+
 \subsection{Exploratory Data Analysis}\label{exploratory-data-analysis}
 
 \begin{itemize}
@@ -740,6 +751,53 @@ data. It also reduced time consumption by compressing the data in an
 optimal way. The Training Loss gradually decreases over epochs and does
 not decrease significantly at the start of the model, which is what we
 want to see to avoid overfitting on the training data. (Figure 16)
+
+\subsection{Conclusion}\label{conclusion}
+
+In conclusion, our analysis covered political instability over 150 years
+and handled missing values through linear interpolation.
+
+In our exploratory data anlysis, we identified a strong negative
+correlation between the Wage/GDP ratio and political instability
+suggesting that increasing wages may coincide with lower instability.
+There were other interesting correlations like the inverse between
+Height and polarization scores, but they more likely than not reflected
+individual trends than causation.
+
+When building regression models, Linear Regression achieved near-perfect
+performance across multiple metrics, highlighting that there is a linear
+relationship within the data. Ridge and Lasso also did well, but more
+complex models didn't add much to the performance and had marginal
+improvement at best, like Random Forest. This lesson highlights the
+importance of proper model selection, especially because the more
+complex models were more prone to overfitting and instability as a
+result of noise in the data, while simpler models were more robust and
+less prone to capturing noise.
+
+Considering dimensionality reduction, Feature Section with 3 features
+performed significantly well compared to PCA-based methods because they
+retained the most relevant predictors and were more interpretable. PCA
+in 3D provided moderate results, but the loss of important data was a
+concern and made it less effective than targetting the most relevant
+predictors. This highlighted the importance of feature selection and the
+pitfalls of dimensionality reduction without considering the context of
+the data.
+
+Lastly, in our unsupervised classification section, we applied PCA with
+K-Means clustering, as reccomended in the project instructions, to
+classify the data into 4 clusters. We chose \(k=4\) by using the Elbow
+method and Silhoutte score to find the optimal number of clusters that
+would not overfit the data but also wouldn't underfit it. (a happy
+medium, as you say) Although \(k=4\) clusters was the best for 3D and 2D
+PCA with K-Means, some overlap continued to show limiting clear
+separation between clusters on the account of instability index alone.
+
+In the final moeling considerations section, we tested 6 models 100
+times, aggregated multiple evaluation metrics, and found that testing a
+large number of models at a time can lead to overfitting and at worst,
+misleading results. More cross-validation and hyperparameter tuning are
+preferred to blindly testing a large number of models if model
+reliability is our priority.
 
 
 
